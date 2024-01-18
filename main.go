@@ -42,7 +42,7 @@ type Config struct {
 func InitConfig() *Config {
 	cfg := &Config{
 		Address: "0.0.0.0",
-		Port: 1188,
+		Port:    1188,
 	}
 
 	flag.StringVar(&cfg.Address, "address", cfg.Address, "Address to listen on")
@@ -246,7 +246,7 @@ func checkUsage(authKey string) (bool, error) {
 func main() {
 	cfg := InitConfig()
 
-	fmt.Printf("DeepL X has been successfully launched! Listening on 0.0.0.0:%v\n", cfg.Port)
+	fmt.Printf("DeepL X has been successfully launched! Listening on %s:%v\n", cfg.Address, cfg.Port)
 	fmt.Println("Developed by sjlleo <i@leo.moe> and missuo <me@missuo.me>.")
 
 	if cfg.Token != "" {
