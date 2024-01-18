@@ -33,6 +33,7 @@ import (
 )
 
 type Config struct {
+	Address string
 	Port    int
 	Token   string
 	AuthKey string
@@ -40,9 +41,12 @@ type Config struct {
 
 func InitConfig() *Config {
 	cfg := &Config{
+		Address: "0.0.0.0",
 		Port: 1188,
 	}
 
+	flag.StringVar(&cfg.Address, "address", cfg.Address, "Address to listen on")
+	flag.StringVar(&cfg.Address, "a", cfg.Address, "Address to listen on")
 	flag.IntVar(&cfg.Port, "port", cfg.Port, "set up the port to listen on")
 	flag.IntVar(&cfg.Port, "p", cfg.Port, "set up the port to listen on")
 
@@ -441,8 +445,8 @@ func main() {
 
 	envPort, ok := os.LookupEnv("PORT")
 	if ok {
-		r.Run(":" + envPort)
+		r.Run(cfg.Address + ":" + envPort)
 	} else {
-		r.Run(fmt.Sprintf(":%v", cfg.Port))
+		r.Run(fmt.Sprintf("%s:%v", cfg.Address, cfg.Port))
 	}
 }
